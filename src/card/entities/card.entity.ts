@@ -9,6 +9,8 @@ import {
 import { Dash } from "src/dash/entities/dash.entity";
 import { Comment } from "src/comment/entities/comment.entity";
 
+// TODO: onDelete, onUpdate, etc
+
 @Entity()
 export class Card {
   @PrimaryGeneratedColumn()
@@ -24,6 +26,6 @@ export class Card {
   @JoinColumn({ name: "dash_id" })
   dash: Dash;
 
-  @OneToMany(() => Comment, (comment) => comment.card)
+  @OneToMany(() => Comment, (comment) => comment.card, { onDelete: "CASCADE" })
   comments: Comment[];
 }

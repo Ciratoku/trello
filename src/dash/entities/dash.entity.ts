@@ -8,6 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
+// TODO: onDelete, onUpdate, etc
 
 @Entity()
 export class Dash {
@@ -18,6 +19,6 @@ export class Dash {
   @ManyToOne(() => User, (user) => user.dashes)
   @JoinColumn({ name: "user_id" })
   user: User;
-  @OneToMany(() => Card, (card) => card.dash)
+  @OneToMany(() => Card, (card) => card.dash, { onDelete: "CASCADE" })
   cards: Card[];
 }
