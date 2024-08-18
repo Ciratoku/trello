@@ -1,7 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Dash } from "src/dash/entities/dash.entity";
 import { Comment } from "src/comment/entities/comment.entity";
-// TODO: onDelete, onUpdate, etc
 
 @Entity()
 export class User {
