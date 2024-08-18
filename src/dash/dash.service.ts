@@ -1,11 +1,21 @@
-import { Injectable } from '@nestjs/common';
-import { CreateDashDto } from './dto/create-dash.dto';
-import { UpdateDashDto } from './dto/update-dash.dto';
+import { Injectable } from "@nestjs/common";
+import { CreateDashDto } from "./dto/create-dash.dto";
+import { UpdateDashDto } from "./dto/update-dash.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Dash } from "./entities/dash.entity";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class DashService {
-  create(createDashDto: CreateDashDto) {
-    return 'This action adds a new dash';
+  constructor(
+    @InjectRepository(Dash) private readonly dashRepository: Repository<Dash>
+  ) {}
+  async create(createDashDto: CreateDashDto, id: number) {
+    const newDash = {
+      title: createDashDto.title,
+      user: { id },
+    };
+    return await this.dashRepository.save(newDash);
   }
 
   findAll() {
