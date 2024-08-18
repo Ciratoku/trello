@@ -7,5 +7,5 @@ export class CreateCardDto {
   @IsNotEmpty()
   description: string;
   @IsNotEmpty()
-  dashId: Dash;
+  dash: Dash;
 }
