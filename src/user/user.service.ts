@@ -29,17 +29,17 @@ export class UserService {
     return { user, token };
   }
 
-  async findOne(id: number) {
+  async findOne(email: string) {
     const user = await this.userRepository.findOne({
       where: {
-        id: id,
+        email,
       },
     });
     if (!user)
       throw new BadRequestException({
         message: `No such user`,
       });
-    return { user };
+    return user;
   }
 
   remove(id: number) {
