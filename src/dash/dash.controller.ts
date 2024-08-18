@@ -16,7 +16,7 @@ import { CreateDashDto } from "./dto/create-dash.dto";
 import { UpdateDashDto } from "./dto/update-dash.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 
-@Controller("dash")
+@Controller("dashes")
 export class DashController {
   constructor(private readonly dashService: DashService) {}
 
@@ -28,8 +28,9 @@ export class DashController {
   }
 
   @Get()
-  findAll() {
-    return this.dashService.findAll();
+  @UseGuards(JwtAuthGuard)
+  findAll(@Req() req) {
+    return this.dashService.findAll(+req.user.id);
   }
 
   @Get(":id")

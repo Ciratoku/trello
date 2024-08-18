@@ -1,9 +1,17 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { CardService } from './card.service';
-import { CreateCardDto } from './dto/create-card.dto';
-import { UpdateCardDto } from './dto/update-card.dto';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from "@nestjs/common";
+import { CardService } from "./card.service";
+import { CreateCardDto } from "./dto/create-card.dto";
+import { UpdateCardDto } from "./dto/update-card.dto";
 
-@Controller('card')
+@Controller("cards")
 export class CardController {
   constructor(private readonly cardService: CardService) {}
 
@@ -17,18 +25,18 @@ export class CardController {
     return this.cardService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.cardService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCardDto: UpdateCardDto) {
+  @Patch(":id")
+  update(@Param("id") id: string, @Body() updateCardDto: UpdateCardDto) {
     return this.cardService.update(+id, updateCardDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
+  @Delete(":id")
+  remove(@Param("id") id: string) {
     return this.cardService.remove(+id);
   }
 }
