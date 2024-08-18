@@ -5,6 +5,8 @@ import { UserModule } from "./user/user.module";
 import { CommentModule } from "./comment/comment.module";
 import { CardModule } from "./card/card.module";
 import { DashModule } from "./dash/dash.module";
+import { AuthModule } from "./auth/auth.module";
+import { AppController } from "./app.controller";
 
 @Module({
   imports: [
@@ -27,6 +29,8 @@ import { DashModule } from "./dash/dash.module";
     CommentModule,
     CardModule,
     DashModule,
+    AuthModule,
   ],
+  controllers: [AppController],
 })
 export class AppModule {}
