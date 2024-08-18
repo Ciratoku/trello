@@ -33,17 +33,15 @@ export class DashController {
     return this.dashService.findAll(+req.user.id);
   }
 
-  @Get(":id")
-  findOne(@Param("id") id: string) {
-    return this.dashService.findOne(+id);
-  }
-
   @Patch(":id")
+  @UseGuards(JwtAuthGuard)
+  @UsePipes(new ValidationPipe())
   update(@Param("id") id: string, @Body() updateDashDto: UpdateDashDto) {
     return this.dashService.update(+id, updateDashDto);
   }
 
   @Delete(":id")
+  @UseGuards(JwtAuthGuard)
   remove(@Param("id") id: string) {
     return this.dashService.remove(+id);
   }

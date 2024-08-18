@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateDashDto } from "./dto/create-dash.dto";
 import { UpdateDashDto } from "./dto/update-dash.dto";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -18,19 +18,34 @@ export class DashService {
     return await this.dashRepository.save(newDash);
   }
 
-  findAll() {
-    return `This action returns all dash`;
+  async findAll(id: number) {
+    return await this.dashRepository.find({
+      where: {
+        user: { id },
+      },
+      relations: {
+        cards: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} dash`;
+  async update(id: number, updateDashDto: UpdateDashDto) {
+    const dash = await this.dashRepository.findOne({
+      where: {
+        id,
+      },
+    });
+    if (!dash) throw new NotFoundException({ message: "No such dash" });
+    return await this.dashRepository.update(id, updateDashDto);
   }
 
-  update(id: number, updateDashDto: UpdateDashDto) {
-    return `This action updates a #${id} dash`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} dash`;
+  async remove(id: number) {
+    const dash = await this.dashRepository.findOne({
+      where: {
+        id,
+      },
+    });
+    if (!dash) throw new NotFoundException({ message: "No such dash" });
+    return await this.dashRepository.delete(id);
   }
 }
