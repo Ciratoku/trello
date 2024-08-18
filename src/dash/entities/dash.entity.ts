@@ -8,7 +8,6 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-// TODO: onDelete, onUpdate, etc
 
 @Entity()
 export class Dash {
