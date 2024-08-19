@@ -29,6 +29,20 @@ export class DashService {
     });
   }
 
+  async findOne(id: number) {
+    const dash = await this.dashRepository.findOne({
+      where: {
+        id,
+      },
+      relations: {
+        cards: true,
+        user: true,
+      },
+    });
+    if (!dash) throw new NotFoundException({ message: "No such dash" });
+    return dash;
+  }
+
   async update(id: number, updateDashDto: UpdateDashDto) {
     const dash = await this.dashRepository.findOne({
       where: {
