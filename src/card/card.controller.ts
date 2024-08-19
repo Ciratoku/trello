@@ -15,7 +15,10 @@ import { CreateCardDto } from "./dto/create-card.dto";
 import { UpdateCardDto } from "./dto/update-card.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { AuthorGuard } from "src/guards/author.guards";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
+@ApiBearerAuth()
+@ApiTags("cards")
 @Controller("cards")
 export class CardController {
   constructor(private readonly cardService: CardService) {}

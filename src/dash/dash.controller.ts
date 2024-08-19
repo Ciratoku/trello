@@ -16,7 +16,10 @@ import { CreateDashDto } from "./dto/create-dash.dto";
 import { UpdateDashDto } from "./dto/update-dash.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
 import { AuthorGuard } from "src/guards/author.guards";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
+@ApiBearerAuth()
+@ApiTags("dashes")
 @Controller("dashes")
 export class DashController {
   constructor(private readonly dashService: DashService) {}
