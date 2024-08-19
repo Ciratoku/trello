@@ -14,6 +14,7 @@ import { CardService } from "./card.service";
 import { CreateCardDto } from "./dto/create-card.dto";
 import { UpdateCardDto } from "./dto/update-card.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { AuthorGuard } from "src/guards/author.guards";
 
 @Controller("cards")
 export class CardController {
@@ -27,20 +28,20 @@ export class CardController {
   }
 
   @Get(":id")
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, AuthorGuard)
   findOne(@Param("id") id: string) {
     return this.cardService.findOne(+id);
   }
 
   @Patch(":id")
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, AuthorGuard)
   @UsePipes(new ValidationPipe())
   update(@Param("id") id: string, @Body() updateCardDto: UpdateCardDto) {
     return this.cardService.update(+id, updateCardDto);
   }
 
   @Delete(":id")
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, AuthorGuard)
   remove(@Param("id") id: string) {
     return this.cardService.remove(+id);
   }

@@ -15,6 +15,7 @@ import { DashService } from "./dash.service";
 import { CreateDashDto } from "./dto/create-dash.dto";
 import { UpdateDashDto } from "./dto/update-dash.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { AuthorGuard } from "src/guards/author.guards";
 
 @Controller("dashes")
 export class DashController {
@@ -34,14 +35,14 @@ export class DashController {
   }
 
   @Patch(":id")
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, AuthorGuard)
   @UsePipes(new ValidationPipe())
   update(@Param("id") id: string, @Body() updateDashDto: UpdateDashDto) {
     return this.dashService.update(+id, updateDashDto);
   }
 
   @Delete(":id")
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, AuthorGuard)
   remove(@Param("id") id: string) {
     return this.dashService.remove(+id);
   }

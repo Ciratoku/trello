@@ -15,6 +15,7 @@ import { CommentService } from "./comment.service";
 import { CreateCommentDto } from "./dto/create-comment.dto";
 import { UpdateCommentDto } from "./dto/update-comment.dto";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { AuthorGuard } from "src/guards/author.guards";
 
 @Controller("comments")
 export class CommentController {
@@ -28,14 +29,14 @@ export class CommentController {
   }
 
   @Patch(":id")
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, AuthorGuard)
   @UsePipes(new ValidationPipe())
   update(@Param("id") id: string, @Body() updateCommentDto: UpdateCommentDto) {
     return this.commentService.update(+id, updateCommentDto);
   }
 
   @Delete(":id")
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, AuthorGuard)
   remove(@Param("id") id: string) {
     return this.commentService.remove(+id);
   }
