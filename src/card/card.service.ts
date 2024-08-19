@@ -28,6 +28,7 @@ export class CardService {
       },
       relations: {
         comments: true,
+        dash: true,
       },
     });
     if (!card) throw new NotFoundException({ message: "No such card" });
